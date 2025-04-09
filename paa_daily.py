@@ -1,10 +1,14 @@
 '''
-IFRS 17 using Premium Allocation Approach (PAA)
-- General Insurance (Car, Travel, Property, Liability)
+IFRS 17 using General Measurement Model (GMM)
+a.k.a. Full Measurement Model (FMM)
+a.k.a. Building Block Approach (BAA)
+- Kontrak Jangka Panjang (Asuransi Jiwa, Kesehatan Jangka Panjang)
 
 Validation:
-1. Coverage period is 1 year or less, or
-2. PAA would produce a result that is not materially different form the General Measurement Model (GMM)
+1. Coverage period lebih dari satu tahun
+2. PAA menghasilkan hasil yang secara material berbeda dengan GMM, atau
+3. Kontrak tidak memenuhi syarat sebagai kontrak asuransi jangka pendek, atau
+4. Kontrak termasuk Asuransi jiwa jangka panjang, Asuransi kesehatan jangka panjang, Asuransi dengan partisipas investasi (jika tidak memenuhi kriteria VFA)
 
 Key Features:
 1. Profit is pread over the coverage period
@@ -84,6 +88,8 @@ def LRC_upfront_prorated(premium, acquisition_cost, str_from_date, str_end_date,
     
     # Onerous contract test
     future_outflows = expected_future_claims + dac_remaining + risk_adjustment
+    
+    #onerous jika Future in flow < Future out flow
     is_onerous = unearned_premium < future_outflows
     loss_component = round(future_outflows - unearned_premium, 2) if is_onerous else 0.0    
 
