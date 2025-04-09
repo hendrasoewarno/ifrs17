@@ -64,15 +64,13 @@ def prorated_days(str_from_date, str_end_date, str_current_date):
 
     for i in range(num_of_days):
         running_date = start_date + timedelta(days=i)
-        if running_date < current_date:
+        #periode tahun lalu, jika kontrak lintas tahun
+        if running_date.year < current_date.year:
             periods["last_periods"] += 1.0
-        elif running_date == current_date:
+        elif running_date <= current_date:
             periods["periods"] += 1.0  # include current day as part of earned
         else:
             periods["next_periods"] += 1.0
-
-    periods["periods"] += periods["last_periods"]
-    periods["last_periods"] = 0.0  # Optional: combine into periods if no need to split further
 
     return periods
 
